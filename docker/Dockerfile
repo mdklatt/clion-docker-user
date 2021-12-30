@@ -24,6 +24,8 @@ RUN addgroup ${group} && \
 # at runtime. This is necessary in a development environment where the
 # container needs to write to the local project directory. THIS SHOULD NOT BE
 # USED IN A PRODUCTION ENVIRONMENT. See <https://github.com/boxboat/fixuid>.
+# CLion appears to override ENTRYPOINT when using this as a Docker toolchain,
+# so the `fixuid` call needs to be in the toolchain environment script.
 RUN curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.5.1/fixuid-0.5.1-linux-amd64.tar.gz | tar -C /usr/local/bin -xzf - && \
     chmod 4755 /usr/local/bin/fixuid && \
     mkdir -p /etc/fixuid && \
