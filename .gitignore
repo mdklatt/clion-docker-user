@@ -1,4 +1,4 @@
 .idea/
-build/
+.build/
 Thumbs.db
 .DS_Score

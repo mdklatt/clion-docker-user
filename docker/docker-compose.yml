@@ -1,0 +1,22 @@
+version: "3.7"
+services:
+  # Development environment usable as a CLion Docker Toolchain.
+  develop:
+    image: ${PROJECT_NAME}
+    build:
+      dockerfile: docker/Dockerfile
+      context: ../
+      args:
+        # Defined in .env file.
+        - PROJECT_ROOT
+    volumes:
+      # Mount the project directory to the container.
+      - type: bind
+        source: ../
+        target: "${PROJECT_ROOT}"
+    user:
+      # The container user needs to have the same permissions on the host as
+      # the local user, so the container needs to run with the host UID and
+      # GID. Inside the container, `fixuid` will be run to match the default
+      # user to these values; see <https://github.com/boxboat/fixuid>.
+      ${UID}:${GID}

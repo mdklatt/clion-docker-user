@@ -1,0 +1,14 @@
+# Ignore everything.
+
+*
+
+
+# Allow Docker files.
+
+!docker/**
+
+
+# Ignore OS metadata files in allowed directories.
+
+**/.DS_Store
+**/Thumbs.db
