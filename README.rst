@@ -13,10 +13,10 @@ matching the host user to a specific user inside the Docker container. This
 works best in situations where the Docker image can built locally by the same
 user who will be running CLion.
 
-If the developer is using a Docker base image that has a predefined user, the
-Docker user UID and GID need to matched to the host user at runtime. One
-solution for this is `fixuid`_. When the container is started, the UID and GID
-of the container user will be modified to match the host user.
+If the development environment uses a Docker base image that has a predefined
+user, the Docker user UID and GID need to matched to the host user at runtime.
+One solution for this is `fixuid`_. When the container is started, the UID and
+GID of the container user will be modified to match the host user.
 
 The `fixuid`_ documentation suggests using the image ``ENTRYPOINT`` to run
 ``fixuid``, but it can also be run as part of a container start-up script,
@@ -24,8 +24,8 @@ The `fixuid`_ documentation suggests using the image ``ENTRYPOINT`` to run
 
 
 
-Running the test application
-============================
+Using the test project
+======================
 
 Running with CLion
 ------------------
@@ -58,9 +58,9 @@ Then, build and run the application inside the running container.
 
 .. code:: console
 
-  user@container $ cmake -S . -B .build
-  user@container $ cmake --build .build
-  user@container $ .build/clion_docker_user
+  user@container$ cmake -S . -B .build
+  user@container$ cmake --build .build
+  user@container$ .build/clion_docker_user
 
 
 Expected output
@@ -72,11 +72,12 @@ output should be the same:
 
 .. code:: console
 
-  fixuid: TRUE
-  HOME: /home/clion
-  whoami: clion
   UID: <host UID>
   GID: <host GID>
+  fixuid: TRUE
+  user: clion
+  $HOME: /home/clion
+
 
 The UID and GID should match the host user values. For macOS, this is typically
 ``501`` and ``20`` respectively.
