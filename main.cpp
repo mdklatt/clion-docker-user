@@ -1,6 +1,8 @@
+#include <sys/stat.h>
 #include <unistd.h>
 #include <cstdlib>
 #include <cstdio>
+#include <cstring>
 #include <iostream>
 #include <stdexcept>
 #include <filesystem>
@@ -37,7 +39,15 @@ try {
 
     // This should be '/home/clion' as the result of running `fixuid'.
     const auto home{getenv("HOME")};
-    cout << "$HOME: " << (home ? home : "") << endl;
+    cout << "HOME: " << (home ? home : "") << endl;
+
+    // HOME UID and GID should match the host user.
+    struct stat statbuf{};
+    if (stat(home, &statbuf) != 0) {
+        throw runtime_error(strerror(errno));
+    }
+    cout << "HOME UID: " << statbuf.st_uid << endl;
+    cout << "HOME GID: " << statbuf.st_gid << endl;
 
     return EXIT_SUCCESS;
 }

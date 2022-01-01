@@ -76,7 +76,7 @@ output should be the same:
   GID: <host GID>
   fixuid: TRUE
   user: clion
-  $HOME: /home/clion
+  HOME: /home/clion
 
 
 The UID and GID should match the host user values. For macOS, this is typically
